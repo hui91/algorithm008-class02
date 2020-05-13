@@ -33,7 +33,7 @@
    例:当传入8时threshold等于8,当传入9时threshold等于16.tableSizeFor的代码如下:
     ```java
     static final int tableSizeFor(int cap) {
-        int n = cap - 1;
+        int n = cap - 1; // 此处减1是为了防止传入8这种2的幂次方的数据时导致数据变大
         n |= n >>> 1;
         n |= n >>> 2;
         n |= n >>> 4;
@@ -42,7 +42,7 @@
         return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
     }
     ```
-    n >>> 1;表示将最高为的1右移一位,n |= >>> 1之后最高位和最高位的后一位都将变为1,n >>> 2;会将前4位转换成1,依次类推,最后会将
+    n >>> 1;表示将传入值cap的最高位的1右移一位,n |= >>> 1之后最高位和最高位的后一位都将变为1,n >>> 2;会将前4位转换成1,依次类推,最后会将
     n最高位的1之后的数据全部转换成1最后再+1 就转换成了2的幂次方了.
 ### 二、put函数
 1. 使用key和value保存数据
